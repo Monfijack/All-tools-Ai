@@ -51,7 +51,7 @@
         }
 
         header .logo img {
-            max-width: 100px; /* Logo size in header */
+            max-width: 80px; /* Smaller Logo size in header for top-left */
             height: auto;
             display: block;
         }
@@ -73,13 +73,14 @@
             color: #ccc; /* Hover color */
         }
 
-        /* Header Image Styles */
+        /* Header Image Styles (The "ALL TOOLS AI" large image) */
         .header-image {
             width: 100%;
-            max-height: 250px; /* Adjusted max-height for better balance */
-            object-fit: cover; /* Cover to fill and potentially crop */
+            max-height: 250px; /* Default max-height for desktop */
+            object-fit: contain; /* Use 'contain' to ensure full image is visible, or 'cover' to crop */
             display: block;
-            margin-bottom: 20px; /* Reduced margin below header image */
+            margin-bottom: 20px; /* Margin below header image */
+            background-color: #000; /* Match header background if image has transparency or is smaller than div */
         }
 
         /* Section for Logo below Header Image */
@@ -93,7 +94,7 @@
         }
 
         .logo-below-header-section img {
-            max-width: 150px; /* Size of the logo below header image */
+            max-width: 150px; /* Size of the logo below header image for desktop */
             height: auto;
             display: block;
         }
@@ -108,7 +109,7 @@
 
         .hero h1 {
             color: #000;
-            font-size: 3em; /* Attractive headline size */
+            font-size: 3em; /* Attractive headline size for desktop */
             margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
@@ -266,7 +267,7 @@
             font-weight: bold;
         }
 
-        /* Responsive adjustments */
+        /* Responsive adjustments for Mobile */
         @media (max-width: 768px) {
             header .container {
                 flex-direction: column;
@@ -288,13 +289,41 @@
             header nav ul li:last-child a {
                 border-bottom: none;
             }
-            /* Adjustments for logo below header image on small screens */
+
+            /* Adjustments for the main header image on small screens */
+            .header-image {
+                max-height: 150px; /* Reduced height for mobile header image */
+                object-fit: contain; /* Keep 'contain' for full image visible */
+            }
+
+            /* Adjustments for the logo below header image on small screens */
             .logo-below-header-section {
                 justify-content: center; /* Center the logo on small screens */
-                padding-bottom: 15px;
+                padding: 0 15px 15px 15px; /* Adjust padding */
             }
             .logo-below-header-section img {
-                max-width: 100px; /* Smaller logo on mobile */
+                max-width: 100px; /* Smaller logo on mobile for this section too */
+            }
+
+            /* Adjustments for the main heading (h1) on small screens */
+            .hero h1 {
+                font-size: 1.8em; /* Significantly reduce font size for mobile H1 */
+                padding: 0 10px; /* Add some horizontal padding */
+            }
+
+            .hero p {
+                font-size: 1em; /* Adjust paragraph font size for mobile */
+                padding: 0 15px;
+            }
+
+            .email-input-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            .email-input-group input[type="email"] {
+                width: 80%;
+                max-width: 400px;
             }
         }
     </style>
@@ -322,7 +351,8 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Monfi Jack</a></li> <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="about.html">About Monfi Jack</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
                     <li><a href="#contact">Contact Me</a></li>
                 </ul>
             </nav>
