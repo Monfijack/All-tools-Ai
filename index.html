@@ -9,7 +9,7 @@
     <meta property="og:title" content="All Tools Ai | Monfi Jack's Honest AI Tool Reviews & Digital Product Insights">
     <meta property="og:description" content="Discover with Monfi Jack the best AI tools and digital products that solve your problems, save time & effort. Honest, tested reviews for AI tools, affiliate marketing, SaaS, and more.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/All-tools-Ai/"> <meta property="og:image" content="https://yourusername.github.io/All-tools-Ai/Header-image.png"> <style>
+    <meta property="og:url" content="https://yourusername.github.io/All-tools-Ai/"> <meta property="og:image" content="https://yourusername.github.io/All-tools-Ai/images/Header-image.png"> <style>
         /* Basic CSS Reset for a clean look */
         body, h1, h2, h3, p, ul, li, a, img {
             margin: 0;
@@ -51,7 +51,7 @@
         }
 
         header .logo img {
-            max-width: 150px; /* Logo size */
+            max-width: 100px; /* Logo size in header */
             height: auto;
             display: block;
         }
@@ -73,12 +73,29 @@
             color: #ccc; /* Hover color */
         }
 
+        /* Header Image Styles */
         .header-image {
             width: 100%;
-            height: 300px; /* Header image height */
-            object-fit: cover; /* Ensure image covers space without distortion */
+            max-height: 250px; /* Adjusted max-height for better balance */
+            object-fit: cover; /* Cover to fill and potentially crop */
             display: block;
-            margin-bottom: 30px;
+            margin-bottom: 20px; /* Reduced margin below header image */
+        }
+
+        /* Section for Logo below Header Image */
+        .logo-below-header-section {
+            display: flex;
+            justify-content: flex-start; /* Align to the start (left) */
+            align-items: center;
+            padding: 0 20px 20px 20px; /* Padding for spacing */
+            max-width: 960px; /* Match container width */
+            margin: 0 auto; /* Center the section */
+        }
+
+        .logo-below-header-section img {
+            max-width: 150px; /* Size of the logo below header image */
+            height: auto;
+            display: block;
         }
 
         /* Hero Section */
@@ -253,26 +270,31 @@
         @media (max-width: 768px) {
             header .container {
                 flex-direction: column;
-                gap: 15px;
+                align-items: center;
+                gap: 10px;
             }
             header nav ul {
                 flex-direction: column;
-                gap: 10px;
-            }
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            .hero p {
-                font-size: 1.1em;
-            }
-            .email-input-group {
-                flex-direction: column;
                 align-items: center;
-                gap: 15px;
+                gap: 5px;
             }
-            .email-input-group input[type="email"] {
-                width: 80%;
-                max-width: 400px;
+            header nav ul li a {
+                padding: 8px 15px;
+                border-bottom: 1px solid #333;
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+            header nav ul li:last-child a {
+                border-bottom: none;
+            }
+            /* Adjustments for logo below header image on small screens */
+            .logo-below-header-section {
+                justify-content: center; /* Center the logo on small screens */
+                padding-bottom: 15px;
+            }
+            .logo-below-header-section img {
+                max-width: 100px; /* Smaller logo on mobile */
             }
         }
     </style>
@@ -284,7 +306,7 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "All Tools Ai",
-      "url": "https://yourusername.github.io/All-tools-Ai/", "logo": "https://yourusername.github.io/All-tools-Ai/logo.png", "description": "Monfi Jack's platform for honest and tested AI tool and digital product reviews.",
+      "url": "https://yourusername.github.io/All-tools-Ai/", "logo": "https://yourusername.github.io/All-tools-Ai/images/logo.png", "description": "Monfi Jack's platform for honest and tested AI tool and digital product reviews.",
       "sameAs": [
         "https://www.facebook.com/yourprofile", "https://twitter.com/yourprofile",
         "https://www.linkedin.com/in/yourprofile"
@@ -309,6 +331,10 @@
 
     <img src="images/Header-image.png" alt="All Tools Ai Header Image" class="header-image">
 
+    <div class="logo-below-header-section">
+        <img src="images/logo.png" alt="All Tools Ai Logo">
+    </div>
+    
     <main class="container">
         <section class="hero">
             <h1>Welcome to Monfi Jack's World! Unlock Your Digital Potential with AI.</h1>
@@ -317,7 +343,7 @@
                 This blog is dedicated to sharing the best digital products and AI tools that truly deliver results and solve real-world problems.
             </p>
             <p>
-                Here, you will find **honest and thoroughly tested reviews** from me and my trusted network of industry friends. Our goal is to provide you with reliable insights, empowering you to make confident decisions for your digital journey. We cover everything from **AI image generators** and **AI video generators** to **SaaS software**, **affiliate marketing programs**, and powerful **digital marketing** solutions.
+                Here, you will find <strong>honest and thoroughly tested reviews</strong> from me and my trusted network of industry friends. Our goal is to provide you with reliable insights, empowering you to make confident decisions for your digital journey. We cover everything from <strong>AI image generators</strong> and <strong>AI video generators</strong> to <strong>SaaS software</strong>, <strong>affiliate marketing programs</strong>, and powerful <strong>digital marketing</strong> solutions.
             </p>
             </section>
 
