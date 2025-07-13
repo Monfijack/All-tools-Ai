@@ -9,7 +9,9 @@
     <meta property="og:title" content="All Tools Ai | Monfi Jack's Honest AI Tool Reviews & Digital Product Insights">
     <meta property="og:description" content="Discover with Monfi Jack the best AI tools and digital products that solve your problems, save time & effort. Honest, tested reviews for AI tools, affiliate marketing, SaaS, and more.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/All-tools-Ai/"> <meta property="og:image" content="https://yourusername.github.io/All-tools-Ai/images/Header-image.png"> <style>
+    <meta property="og:url" content="https://yourusername.github.io/All-tools-Ai/"> <meta property="og:image" content="https://yourusername.github.io/All-tools-Ai/images/Header-image.png"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
         /* Basic CSS Reset for a clean look */
         body, h1, h2, h3, p, ul, li, a, img {
             margin: 0;
@@ -239,16 +241,18 @@
             margin-top: 50px;
         }
 
-        footer .social-links a {
+        /* Social Links styling */
+        .social-icons a {
             color: #fff;
-            margin: 0 10px;
-            font-size: 1.5em;
+            margin: 0 10px; /* Spacing between icons */
+            font-size: 1.8em; /* Size of icons */
             text-decoration: none;
             transition: color 0.3s ease;
+            display: inline-block; /* Essential for margin and sizing */
         }
 
-        footer .social-links a:hover {
-            color: #ccc;
+        .social-icons a:hover {
+            color: #ccc; /* Hover color */
         }
 
         footer .footer-nav ul {
@@ -292,8 +296,9 @@
 
             /* Adjustments for the main header image on small screens */
             .header-image {
-                max-height: 100px; /* Reduced height for mobile header image */
+                max-height: 100px !important; /* Reduced height for mobile header image, with !important for priority */
                 object-fit: contain; /* Keep 'contain' for full image visible */
+                width: 100% !important; /* Ensure width is 100% for responsiveness */
             }
 
             /* Adjustments for the logo below header image on small screens */
@@ -337,8 +342,9 @@
       "name": "All Tools Ai",
       "url": "https://yourusername.github.io/All-tools-Ai/", "logo": "https://yourusername.github.io/All-tools-Ai/images/logo.png", "description": "Monfi Jack's platform for honest and tested AI tool and digital product reviews.",
       "sameAs": [
-        "https://www.facebook.com/yourprofile", "https://twitter.com/yourprofile",
-        "https://www.linkedin.com/in/yourprofile"
+        "https://www.facebook.com/profile.php?id=61578027463610", 
+        "https://x.com/Monfijack",
+        "https://www.linkedin.com/in/monfi-jack-043ab0374"
       ]
     }
     </script>
@@ -402,9 +408,15 @@
             <h2>Connect With Me!</h2>
             <p>For any inquiries, suggestions, or specific review requests, feel free to reach out via the platforms below:</p>
             <div class="social-icons" style="margin-top: 20px;">
-                <span style="font-size: 2em; margin: 0 10px;">[Facebook]</span>
-                <span style="font-size: 2em; margin: 0 10px;">[Twitter]</span>
-                <span style="font-size: 2em; margin: 0 10px;">[LinkedIn]</span>
+                <a href="https://www.facebook.com/profile.php?id=61578027463610" target="_blank" aria-label="Facebook Profile">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://x.com/Monfijack" target="_blank" aria-label="X (Twitter) Profile">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/monfi-jack-043ab0374" target="_blank" aria-label="LinkedIn Profile">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
         </section>
 
@@ -414,8 +426,7 @@
         <div class="container">
             <div class="footer-nav">
                 <ul>
-                    <li><a href="privacy-policy.html">Legal Page</a></li>
-                    <li><a href="about.html">About Monfi Jack</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li> <li><a href="about.html">About Monfi Jack</a></li>
                     <li><a href="index.html">Home</a></li>
                 </ul>
             </div>
