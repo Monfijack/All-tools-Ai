@@ -242,18 +242,24 @@
         }
 
         /* Social Links styling */
+        /* Applying color to the icon itself using a more specific selector */
+        .social-icons a i { /* Targeting the <i> tag directly within the link */
+            color: #fff !important; /* Force white color for the icon */
+            transition: color 0.3s ease; /* Smooth transition for hover */
+        }
+
+        .social-icons a:hover i {
+            color: #ccc !important; /* Slightly lighter on hover */
+        }
+
+        /* General link styling for social icons wrapper */
         .social-icons a {
-            color: #fff;
             margin: 0 10px; /* Spacing between icons */
-            font-size: 1.8em; /* Size of icons */
+            font-size: 1.8em; /* Size of the entire icon link area */
             text-decoration: none;
-            transition: color 0.3s ease;
             display: inline-block; /* Essential for margin and sizing */
         }
 
-        .social-icons a:hover {
-            color: #ccc; /* Hover color */
-        }
 
         footer .footer-nav ul {
             list-style: none;
