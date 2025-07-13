@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Monfi Jack's - All Tools AI - Real reviews of AI tools in 2025" />
+  <title>About Me - All Tools AI</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  </style>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Monfi Jack's",
+    "url": "https://yourdomain.com",
+    "image": "https://yourdomain.com/images/Site-owner.png",
+    "jobTitle": "AI Tools Reviewer & Content Creator",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "All Tools AI"
+    },
+    "sameAs": []
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <img src="images/Site-owner.png" alt="Monfi Jack's" class="profile-pic" />
+    <h1>About Me</h1>
+    <p>Hi, I'm Monfi Jack's, the founder of All Tools AI. I'm passionate about artificial intelligence tools and use them every day to grow my work. I test new AI tools constantly and share the best ones with my friends and business partners because I believe these tools can truly change how we work, save time, and open new opportunities.</p>
+    <p>Whether you're running a small business or working in a large company, this blog helps you discover both new and old AI tools that are still powerful and effective. My reviews are honest and based on real experiences — not only mine but also from others working online in different industries.</p>
+    <p>Before I started this blog, I worked at a big company managing social media, building brand identity, and driving traffic. But the company used traditional methods and everything relied on manual effort, which made it exhausting — and I was the one responsible for all of it.</p>
+    <p>Then in 2022, when AI tools started to emerge, I saw the shift coming and decided to learn how to use them the right way. At first, it wasn’t easy. Things were confusing and unclear. But over time, it all made sense. I started applying AI tools inside that same traditional company and the results were surprisingly good.</p>
+    <p>Now in 2025, I’ve made it my mission to help others use AI smartly — with human thinking — and achieve incredible results. I'm here to share everything I test, learn, and use to make your journey easier.</p>
+  </div>
+</body>
+</html>
