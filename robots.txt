@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://monfijack.github.io/All-tools-Ai/sitemap.xml
