@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://monfijack.github.io/All-tools-Ai/</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod> 
+    <priority>1.0</priority>
   </url>
+
   <url>
     <loc>https://monfijack.github.io/All-tools-Ai/about.html</loc>
-  </url>
-  <url>
-    <loc>https://monfijack.github.io/All-tools-Ai/privacy-policy.html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://monfijack.github.io/All-tools-Ai/SEO-Keyword-Hunter-Pro.html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
-    <lo<c>https://monfijack.github.io/All-tools-Ai/VidFortune-Ai-review.html</loc>
+    <loc>https://monfijack.github.io/All-tools-Ai/VidFortune-Ai-review.html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
   </url>
- <url>
-    <lo<c>https://monfijack.github.io/All-tools-Ai/Kawaii-Pocket-Gardens-(PLR).html</loc>
+  <url>
+    <loc>https://monfijack.github.io/All-tools-Ai/GPTMantra-BlackBook.html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
   </url>
-</urlset>
+  <url>
+    <loc>https://monfijack.github.io/All-tools-Ai/Vidmagnet-review.html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://monfijack.github.io/All-tools-Ai/Kawaii-Pocket-Gardens-(PLR).html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://monfijack.github.io/All-tools-Ai/privacy-policy.html</loc>
+    <lastmod>2025-07-25T00:00:00+00:00</lastmod>
+    <priority>0.8</priority>
+  </url>
 
+</urlset>
