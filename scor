@@ -1,0 +1,399 @@
+// Note: Requires Vue 3 and Tailwind CSS to be configured in CodePen settings
+
+const { ref, computed } = Vue;
+
+// --- SVG Icons Components (كود الأيقونات) ---
+const TrashIcon = { template: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400 hover:text-red-300 transition-colors"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>' };
+const EditIcon = { template: '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400 opacity-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>' };
+const CheckIcon = { template: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><polyline points="20 6 9 17 4 12"/></svg>' };
+const PlusIcon = { template: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' };
+
+
+// --- 1. Editable Field Component ---
+const EditableField = {
+    props: ['value', 'field', 'itemId', 'onUpdate'],
+    setup(props) {
+        const isEditing = ref(false);
+        const tempValue = ref(props.value);
+
+        const saveValue = () => {
+            if (props.value !== tempValue.value) {
+                props.onUpdate(props.itemId, props.field, tempValue.value);
+            }
+            isEditing.value = false;
+        };
+
+        const startEditing = () => {
+            isEditing.value = true;
+            // Ensure tempValue is updated before editing starts
+            tempValue.value = props.value; 
+            
+            // Note: In CodePen, auto-focus might require a nextTick approach
+        };
+
+        return {
+            isEditing,
+            tempValue,
+            saveValue,
+            startEditing
+        };
+    },
+    template: `
+        <span v-if="!isEditing" 
+            @click="startEditing" 
+            class="cursor-pointer hover:text-sky-300 hover:bg-sky-500/10 px-2 py-1 rounded transition-all flex items-center gap-2 group">
+            {{ value }} <span class="opacity-0 group-hover:opacity-100 transition-opacity"><EditIcon /></span>
+        </span>
+        <div v-else class="flex items-center gap-2 w-full">
+            <input 
+                type="text" 
+                v-model="tempValue" 
+                @blur="saveValue"
+                @keyup.enter="saveValue"
+                autofocus
+                class="bg-slate-800 border-b-2 border-sky-500 text-white px-2 py-1 outline-none rounded-t-md w-full min-w-[100px]"
+            />
+            <button @click.prevent="saveValue"><CheckIcon /></button>
+        </div>
+    `,
+    components: { EditIcon, CheckIcon }
+};
+
+// --- 2. Add Person/Service Form Component ---
+const AddPersonForm = {
+    props: ['onAdd', 'isService', 'nextId'],
+    setup(props) {
+        const inputData = ref({
+            field1: '',
+            field2: '',
+            field3: '',
+        });
+
+        const labels = computed(() => props.isService ? 
+            ['نوع الخدمة (المطلوب)', 'اسم الشخص/الشركة', 'الموقع'] :
+            ['الاسم (المطلوب)', 'العنوان', 'رقم الهاتف']);
+
+        const handleSubmit = (e) => {
+            const { field1, field2, field3 } = inputData.value;
+
+            if (field1 && field2 && field3) {
+                let newItem;
+                if (props.isService) {
+                    newItem = { 
+                        id: props.nextId, 
+                        type: field1,   
+                        name: field2,   
+                        loc: field3,    
+                        phone: field3 // استخدام نفس الحقل للهاتف مؤقتاً في حالة الخدمات
+                    };
+                } else {
+                    newItem = { 
+                        id: props.nextId, 
+                        name: field1,   
+                        loc: field2,    
+                        phone: field3   
+                    };
+                }
+                
+                props.onAdd(newItem);
+                
+                // تفريغ الحقول
+                inputData.value = { field1: '', field2: '', field3: '' };
+            } else {
+                alert('الرجاء إدخال جميع الحقول الثلاثة.');
+            }
+        };
+
+        return {
+            inputData,
+            labels,
+            handleSubmit,
+        };
+    },
+    template: `
+        <form @submit.prevent="handleSubmit" class="glass-card p-4 rounded-xl border-green-500/30 border-dashed border">
+            <h5 class="font-bold text-green-400 mb-3 flex items-center gap-2 border-b border-white/5 pb-2">
+                <PlusIcon /> إضافة {{ isService ? 'خدمة جديدة' : 'شخص جديد' }}
+            </h5>
+            <div class="flex flex-col md:flex-row gap-2">
+                <input
+                    type="text"
+                    :placeholder="labels[0]"
+                    v-model="inputData.field1"
+                    class="bg-slate-800/80 p-2 rounded text-sm w-full outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                    dir="rtl"
+                />
+                <input
+                    type="text"
+                    :placeholder="labels[1]"
+                    v-model="inputData.field2"
+                    class="bg-slate-800/80 p-2 rounded text-sm w-full outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                    dir="rtl"
+                />
+                <input
+                    type="tel"
+                    :placeholder="labels[2]"
+                    v-model="inputData.field3"
+                    class="bg-slate-800/80 p-2 rounded text-sm w-full outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                    dir="ltr"
+                />
+                <button
+                    type="submit"
+                    class="bg-green-600 hover:bg-green-500 text-white font-bold p-2 rounded transition-colors flex-shrink-0"
+                >
+                    إضافة
+                </button>
+            </div>
+        </form>
+    `,
+    components: { PlusIcon }
+};
+
+// --- 3. Supplier Row Component ---
+const SupplierRow = {
+    props: ['item', 'onDelete', 'onUpdate'],
+    components: { EditableField, TrashIcon },
+    template: `
+        <div class="glass-card p-3 rounded-lg flex items-center justify-between group hover:bg-slate-800/80 transition-colors">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full text-sm">
+                <div class="flex items-center gap-2 w-full sm:w-1/3">
+                    <div class="w-2 h-2 rounded-full bg-sky-500"></div>
+                    <EditableField class="font-semibold text-slate-200" 
+                        :value="item.name" :item-id="item.id" field="name" :on-update="onUpdate" />
+                </div>
+                
+                <div class="flex items-center gap-2 text-slate-400 w-full sm:w-1/4">
+                    <span class="text-slate-600 text-xs">📍</span>
+                    <EditableField :value="item.loc" :item-id="item.id" field="loc" :on-update="onUpdate" />
+                </div>
+                
+                <div class="flex items-center gap-2 w-full sm:w-1/3">
+                    <span class="text-slate-600 text-xs">📞</span>
+                    <EditableField class="font-mono text-xs tracking-wider bg-slate-900/50 px-2 rounded text-sky-200" 
+                        :value="item.phone" :item-id="item.id" field="phone" :on-update="onUpdate" />
+                </div>
+            </div>
+            
+            <button 
+                @click="onDelete(item.id)" 
+                class="ml-2 p-2 rounded-full hover:bg-red-500/20 opacity-0 group-hover:opacity-100 transition-all"
+                title="حذف"
+            >
+                <TrashIcon />
+            </button>
+        </div>
+    `
+};
+
+// --- 4. Main Dashboard Component (المكون الرئيسي) ---
+const Dashboard = {
+    setup() {
+        // تعريف الحالات الأساسية باستخدام ref
+        const problems = ref([
+            { id: 1, title: "مشكلة عدم التركيز والانسجام", solution: "تقسيم المهام. زوهير ومصطفى فيكس في الكراج، وأمين يتكلف بـ 'التسخار' خارج الكراج." },
+            // ... (بقية المشاكل)
+        ]);
+        const tier1 = ref([
+            { id: 1, name: "مصطفى", loc: "سلا", phone: "067766554" },
+            { id: 2, name: "خالد", loc: "سلا", phone: "069888765" },
+        ]);
+        const tier2 = ref([
+            { id: 1, name: "زكريا", loc: "سلا", phone: "0613075900" },
+        ]);
+        const tier3 = ref([
+            { id: 1, name: "موراد", loc: "تابريكت", phone: "0655475153" },
+        ]);
+        const services = ref([
+            { id: 1, type: "إصلاح الفرامل", name: "عبدالرحيم", loc: "روسطال", phone: "0628782927" },
+        ]);
+
+        // دالة تحديث عامة
+        const updateItem = (listRef, id, field, newValue) => {
+            listRef.value = listRef.value.map(item => 
+                item.id === id ? { ...item, [field]: newValue } : item
+            );
+        };
+
+        // دالة حذف عامة
+        const deleteItem = (listRef, id) => {
+            if (confirm('هل أنت متأكد من الحذف؟')) {
+                listRef.value = listRef.value.filter(item => item.id !== id);
+            }
+        };
+
+        // دالة إضافة عامة
+        const addItem = (listRef, newItem) => {
+            listRef.value.push(newItem);
+        };
+
+        // دالة لحساب الـ ID الجديد
+        const getNextId = (listRef) => {
+            const maxId = listRef.value.reduce((max, item) => (item.id > max ? item.id : max), 0);
+            return maxId + 1;
+        };
+
+        return {
+            problems,
+            tier1,
+            tier2,
+            tier3,
+            services,
+            updateItem,
+            deleteItem,
+            addItem,
+            getNextId
+        };
+    },
+    components: { SupplierRow, AddPersonForm, PlusIcon },
+    template: `
+        <div class="relative w-full max-w-7xl mx-auto p-4 md:p-8">
+            <header class="text-center mb-12">
+                <div class="inline-block p-1 rounded-2xl bg-gradient-to-r from-sky-400 to-purple-500 mb-6">
+                    <div class="bg-slate-900 rounded-xl px-8 py-6 glass-panel">
+                        <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-white to-sky-300 mb-2">
+                            خريطة طريق نحو النجاح - كراج HM (Vue.js)
+                        </h1>
+                        <p class="text-slate-400 font-light text-lg tracking-wide">
+                            مركز قيادة متكامل للخدمات والتوريدات
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <section class="lg:col-span-12 glass-panel rounded-2xl p-6">
+                    <h2 class="text-2xl font-bold mb-6 text-sky-300 border-b border-white/10 pb-4 flex items-center gap-2">
+                        <span class="bg-sky-500/20 p-2 rounded-lg">⚠️</span> مشاكل وحلول استراتيجية
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div v-for="prob in problems" :key="prob.id" class="glass-card p-5 rounded-xl flex flex-col h-full">
+                            <h3 class="font-bold text-lg text-white mb-2">{{ prob.title }}</h3>
+                            <div class="flex-grow text-slate-300 text-sm leading-relaxed bg-slate-800/50 p-3 rounded-lg border border-white/5">
+                                <strong class="text-emerald-400 block mb-1">الحل المقترح:</strong>
+                                {{ prob.solution }}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="lg:col-span-7 flex flex-col gap-6">
+                    <div class="glass-panel rounded-2xl p-6 h-full">
+                        <h2 class="text-2xl font-bold mb-6 text-sky-300 border-b border-white/10 pb-4 flex items-center gap-2">
+                            <span class="bg-sky-500/20 p-2 rounded-lg">📦</span> هرم المورّدين
+                        </h2>
+                        
+                        <div class="mb-6 relative">
+                            <h4 class="font-bold text-yellow-400 mb-3 pr-4">1. موريدون متنقلون (القمة)</h4>
+                            <div class="space-y-2">
+                                <SupplierRow 
+                                    v-for="item in tier1" 
+                                    :key="item.id" 
+                                    :item="item" 
+                                    :on-delete="(id) => deleteItem(tier1, id)"
+                                    :on-update="(id, field, value) => updateItem(tier1, id, field, value)"
+                                />
+                            </div>
+                            <div class="mt-4">
+                                <AddPersonForm 
+                                    :on-add="(newItem) => addItem(tier1, newItem)" 
+                                    :next-id="getNextId(tier1)" 
+                                />
+                            </div>
+                        </div>
+
+                        <div class="mb-6 relative">
+                            <h4 class="font-bold text-blue-400 mb-3 pr-4">2. فتح حساب مع متجر (الوسط)</h4>
+                            <div class="space-y-2">
+                                <SupplierRow 
+                                    v-for="item in tier2" 
+                                    :key="item.id" 
+                                    :item="item" 
+                                    :on-delete="(id) => deleteItem(tier2, id)"
+                                    :on-update="(id, field, value) => updateItem(tier2, id, field, value)"
+                                />
+                            </div>
+                            <div class="mt-4">
+                                <AddPersonForm 
+                                    :on-add="(newItem) => addItem(tier2, newItem)" 
+                                    :next-id="getNextId(tier2)" 
+                                />
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <h4 class="font-bold text-purple-400 mb-3 pr-4">3. قطع غيار مستعملة (القاعدة)</h4>
+                            <div class="space-y-2">
+                                <SupplierRow 
+                                    v-for="item in tier3" 
+                                    :key="item.id" 
+                                    :item="item" 
+                                    :on-delete="(id) => deleteItem(tier3, id)"
+                                    :on-update="(id, field, value) => updateItem(tier3, id, field, value)"
+                                />
+                            </div>
+                            <div class="mt-4">
+                                <AddPersonForm 
+                                    :on-add="(newItem) => addItem(tier3, newItem)" 
+                                    :next-id="getNextId(tier3)" 
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="lg:col-span-5">
+                    <div class="glass-panel rounded-2xl p-6 h-full sticky top-6">
+                        <h2 class="text-2xl font-bold mb-6 text-sky-300 border-b border-white/10 pb-4 flex items-center gap-2">
+                            <span class="bg-sky-500/20 p-2 rounded-lg">🛠️</span> خدمات أساسية
+                        </h2>
+                        
+                        <div class="mb-6">
+                            <AddPersonForm 
+                                :on-add="(newItem) => addItem(services, newItem)" 
+                                :next-id="getNextId(services)" 
+                                :is-service="true" 
+                            />
+                        </div>
+
+                        <div class="space-y-3">
+                            <div v-for="srv in services" :key="srv.id" class="glass-card p-3 rounded-lg flex flex-col gap-2 group hover:bg-slate-800/80">
+                                <div class="flex justify-between items-center border-b border-white/5 pb-2 mb-1">
+                                    <EditableField class="font-bold text-emerald-400 text-sm" 
+                                        :value="srv.type" :item-id="srv.id" field="type" :on-update="(id, field, value) => updateItem(services, id, field, value)" />
+                                    <button 
+                                        @click="deleteItem(services, srv.id)"
+                                        class="p-1 hover:bg-red-500/20 rounded-full transition-colors opacity-0 group-hover:opacity-100"
+                                    >
+                                        <TrashIcon />
+                                    </button>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 text-sm text-slate-300">
+                                    <span class="text-slate-500">الاسم:</span>
+                                    <EditableField :value="srv.name" :item-id="srv.id" field="name" :on-update="(id, field, value) => updateItem(services, id, field, value)" />
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 text-sm text-slate-300">
+                                    <span class="text-slate-500">الموقع:</span>
+                                    <EditableField :value="srv.loc" :item-id="srv.id" field="loc" :on-update="(id, field, value) => updateItem(services, id, field, value)" />
+                                </div>
+                                <div class="flex flex-wrap items-center gap-2 text-sm text-slate-300">
+                                    <span class="text-slate-500">الهاتف:</span>
+                                    <EditableField class="font-mono text-xs tracking-wider bg-slate-900/50 px-2 rounded text-sky-200" 
+                                        :value="srv.phone" :item-id="srv.id" field="phone" :on-update="(id, field, value) => updateItem(services, id, field, value)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            
+            <footer class="mt-12 text-center text-slate-600 text-sm py-6 border-t border-slate-800">
+                &copy; 2024 HM Garage Management System - Powered by Vue.js
+            </footer>
+        </div>
+    `
+};
+
+// Start Vue App
+Vue.createApp(Dashboard).mount('#app');
